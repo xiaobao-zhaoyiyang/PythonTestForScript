@@ -1,0 +1,7 @@
+caps001:
+  "deviceName": "MI 8",
+  'appPackage': "com.ss.android.tuchong",
+  "appActivity": "com.ss.android.tuchong.splash.controller.SplashActivity",
+  "platformName": "Android",
+  "platformVersion": "10",
+  "autoGrantPermissions": "true"
