@@ -1,8 +1,10 @@
 import requests
 import json
+from tempfile import NamedTemporaryFile
+import scripts.demo
+import os
 
-token = ''
-uid = ''
+f = None
 
 
 def login(captcha_id='', captcha_token=''):
@@ -30,9 +32,9 @@ def login(captcha_id='', captcha_token=''):
         get_captcha()
     else:
         print('登录成功')
-        global token, uid
         token = result_content.get('token')
         uid = result_content.get('identity')
+        save_token_uid(token, uid)
 
 
 def get_captcha():
@@ -96,3 +98,19 @@ def get_access_token():
     if response:
         print(response.json())
         return response.json().get('access_token')
+
+
+def save_token_uid(token, uid):
+    save_file_path = './temp'
+    if not os.path.isdir(save_file_path):
+        os.makedirs(save_file_path)
+    list_dir = os.listdir(save_file_path)
+    if len(list_dir) != 0:
+        for dir_temp in list_dir:
+            os.remove(save_file_path + '/' + dir_temp)
+    global f
+    f = NamedTemporaryFile(mode='w+', dir=f'{save_file_path}/', delete=False)
+    f.write(token+'\n')
+    f.write(uid)
+    f.seek(0)
+

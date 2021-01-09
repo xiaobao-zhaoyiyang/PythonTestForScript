@@ -1,18 +1,23 @@
 import scripts.login_for_name
 import requests
+import data.base_data
 
 headers = {}
 
 
 def get_data_from_url():
-    scripts.login_for_name.login()
-    print('token = ' + scripts.login_for_name.token)
-    url = f'https://api.tuchong.com/sites/{scripts.login_for_name.uid}/works'
+    # scripts.login_for_name.login()
+    # print('token = ' + scripts.login_for_name.token)
+    user_dict = data.base_data.get_token_uid()
+    # url = f'https://api.tuchong.com/sites/{scripts.login_for_name.uid}/works'
+    url = f'https://api.tuchong.com/sites/' + user_dict.get('uid') + '/works'
     global headers
-    headers = {'token': scripts.login_for_name.token,
+    # headers = {'token': scripts.login_for_name.token,
+    #            'platform': 'ios'}
+    headers = {'token': user_dict.get('token'),
                'platform': 'ios'}
     r = requests.get(url, headers=headers)
-    print(r.json())
+    # print(r.json())
     return r.json()
 
 
@@ -38,7 +43,7 @@ def analysis_json():
                 'is_top': is_top
             }
             list_simple_json.append(dict_simple_data)
-    print(list_simple_json)
+    # print(list_simple_json)
     return list_simple_json
 
 
@@ -57,7 +62,7 @@ def delete_single_data(single_data):
         r = requests.delete(url_else, headers=headers)
         print('删除了视频类：' + r.json())
     else:
-        r = requests.delete(url_post, heeaders=headers)
+        r = requests.delete(url_post, headers=headers)
         print(r.json())
         print('删除了图文类：' + r.json())
 
