@@ -21,4 +21,5 @@ def get_token_uid():
             'token': token,
             'uid': uid
         }
+        file.close()
     return user_dict
