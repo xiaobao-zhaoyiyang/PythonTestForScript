@@ -60,11 +60,19 @@ def delete_single_data(single_data):
         return
     if 'new_film' == data_type or 'video' == data_type:
         r = requests.delete(url_else, headers=headers)
-        print('删除了视频类：' + r.json())
+        response = r.json()
+        print('删除了视频类：' + response)
+        if 'SUCCESS' == response.get('message'):
+            print('删除视频类作品成功')
+        else:
+            print('删除视频类作品失败')
     else:
         r = requests.delete(url_post, headers=headers)
-        print(r.json())
-        print('删除了图文类：' + r.json())
+        response = r.json()
+        if 'SUCCESS' == response.get('message'):
+            print('删除图文类作品成功')
+        else:
+            print('删除图文类作品失败')
 
 
 def delete_all_data(is_delete_all):
