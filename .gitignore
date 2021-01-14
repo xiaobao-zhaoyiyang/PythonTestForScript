@@ -1,2 +1,5 @@
 /.DS_Store
 /PycharmFolder/
+/PyTestCase/data/__pycache__/base_data.cpython-37.pyc
+/PyTestCase/scripts/__pycache__/demo.cpython-37.pyc
+/PyTestCase/scripts/__pycache__/login_for_name.cpython-37.pyc
