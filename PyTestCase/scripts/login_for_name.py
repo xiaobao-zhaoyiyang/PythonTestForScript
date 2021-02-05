@@ -101,7 +101,8 @@ def get_access_token():
 
 
 def save_token_uid(token, uid):
-    save_file_path = './temp'
+    # save_file_path = './temp'
+    save_file_path = '/Users/zhaoqiang/pycharm-workspace/PyTestCase/data/temp'
     if not os.path.isdir(save_file_path):
         os.makedirs(save_file_path)
     list_dir = os.listdir(save_file_path)

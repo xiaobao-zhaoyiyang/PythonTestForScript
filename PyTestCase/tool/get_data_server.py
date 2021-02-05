@@ -1,35 +1,42 @@
+import data as data
 import requests
 import json
+import data.base_data
 
 from tool import get_data_excel
 
 
 def get_data(url):
+    user_dict = data.base_data.get_token_uid()
+    # headers = {
+    #     'method': 'GET',
+    #     'authority': 'tuchong.com',
+    #     'scheme': 'https',
+    #     'accept': 'application/json, text/plain, */*',
+    #     'x-requested-with': 'XMLHttpRequest',
+    #     'sec-fetch-site': 'same-origin',
+    #     'sec-fetch-mode': 'cors',
+    #     'sec-fetch-dest': 'empty',
+    #     'accept-encoding': 'gzip, deflate',
+    #     'accept-language': 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7',
+    #     'cookie': 'webp_enabled=1',
+    #     'cookie': 'token=5180c542c8307b54',
+    #     'cookie': 'lang=zh',
+    #     'cookie': 'PHPSESSID=inejn5iuengq7muiqos0eeuaef',
+    #     'cookie': '_ga=GA1.2.1056662492.1606553476',
+    #     'cookie': '_gid=GA1.2.304345705.1606553476',
+    #     'cookie': 'MONITOR_WEB_ID=49b75dbd-30e5-49b8-b40f-1fc031cb4a7a',
+    #     'cookie': '_gat=1'
+    # }
+    user_dict = data.base_data.get_token_uid()
     headers = {
-        'method': 'GET',
-        'authority': 'tuchong.com',
-        'scheme': 'https',
-        'accept': 'application/json, text/plain, */*',
-        'x-requested-with': 'XMLHttpRequest',
-        'sec-fetch-site': 'same-origin',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-dest': 'empty',
-        'accept-encoding': 'gzip, deflate',
-        'accept-language': 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7',
-        'cookie': 'webp_enabled=1',
-        'cookie': 'token=5180c542c8307b54',
-        'cookie': 'lang=zh',
-        'cookie': 'PHPSESSID=inejn5iuengq7muiqos0eeuaef',
-        'cookie': '_ga=GA1.2.1056662492.1606553476',
-        'cookie': '_gid=GA1.2.304345705.1606553476',
-        'cookie': 'MONITOR_WEB_ID=49b75dbd-30e5-49b8-b40f-1fc031cb4a7a',
-        'cookie': '_gat=1'
+        'cookie': 'token='+user_dict.get('token')
     }
     r = requests.get(url, headers)
     # print(r.status_code)
-    data = r.json()
+    response = r.json()
     # print(json.dumps(data))
-    return data
+    return response
 
 
 def get_compair_data(filepath, index):
@@ -83,6 +90,8 @@ def get_compair_data(filepath, index):
         #比较数据出结果
         if array_excel == array_url:
             print('课程id = %s，True' % id)
+            print('本地数据%s' % array_excel)
+            print('网络数据%s' % array_url)
         else:
             print('课程id = %s，False' % id)
             #读取两个字典相同的key
@@ -96,4 +105,4 @@ def get_compair_data(filepath, index):
 
 if __name__ == '__main__':
     # get_data()
-    get_compair_data('/Users/zhaoqiang/Documents/MyFiles/上架课程.xlsx', 1)
+    get_compair_data('/Users/zhaoqiang/Documents/MyFiles/上架课程.xlsx', 2)

@@ -35,6 +35,7 @@ def analysis_json():
                 is_self = entry.get('is_self')
             elif 'post' == data_type:
                 data_id = entry.get('post_id')
+                is_self = 'false'
             is_top = entry.get('is_top')
             dict_simple_data = {
                 'id': data_id,
